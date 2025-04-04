@@ -15,6 +15,7 @@ import {
 
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
+import SignatureCanvas from "react-signature-canvas"
 
 const Form = FormProvider
 
@@ -155,6 +156,50 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
   )
 }
 
+// ✅ 시그니처 패드 전용 FormField
+function FormSignaturePad() {
+  const { name } = useFormField()
+  const { control } = useFormContext()
+
+  return (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => {
+        const canvasRef = React.useRef<SignatureCanvas>(null)
+
+        const clear = () => {
+          canvasRef.current?.clear()
+          field.onChange("")
+        }
+
+        return (
+          <div className="space-y-2">
+            <div className="border rounded-md p-2 bg-white">
+              <SignatureCanvas
+                ref={canvasRef}
+                penColor="black"
+                canvasProps={{ width: 500, height: 200, className: "signature-canvas" }}
+                onEnd={() => {
+                  const dataUrl = canvasRef.current?.toDataURL() || ""
+                  field.onChange(dataUrl)
+                }}
+              />
+            </div>
+            <button
+              type="button"
+              onClick={clear}
+              className="text-sm underline text-gray-500 hover:text-gray-700"
+            >
+              서명 지우기
+            </button>
+          </div>
+        )
+      }}
+    />
+  )
+}
+
 export {
   useFormField,
   Form,
@@ -164,4 +209,5 @@ export {
   FormDescription,
   FormMessage,
   FormField,
+  FormSignaturePad, // ✅ export 추가
 }
