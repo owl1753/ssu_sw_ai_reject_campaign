@@ -104,8 +104,7 @@ export default function SignatureForm() {
                                 </FormItem>
                             )}
                         />
-                        <Button type="submit">Submit</Button>
-
+                        <Button variant="outline" className="w-full" type="submit">제출하기</Button>
                     </form>
                 </Form>
             </main>
