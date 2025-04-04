@@ -1,16 +1,37 @@
-import {Button} from "@/components/ui/button"
-import Link from "next/link";
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
+"use client"
+
+import { useEffect, useState } from "react"
+import { collection, onSnapshot } from "firebase/firestore"
+import firestore from "../../fiebase/firestore"
+
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function Home() {
+    const [signatureCount, setSignatureCount] = useState<number | null>(null)
+
+    useEffect(() => {
+        const unsubscribe = onSnapshot(
+            collection(firestore, "signatureListTable"),
+            (snapshot) => {
+                setSignatureCount(snapshot.size)
+            },
+            (error) => {
+                console.error("실시간 서명 수 업데이트 실패:", error)
+            }
+        )
+
+        return () => unsubscribe() // 컴포넌트 언마운트 시 리스너 정리
+    }, [])
+
     return (
-        <div
-            className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen px-4 font-[family-name:var(--font-geist-sans)]">
+        <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen px-4 font-[family-name:var(--font-geist-sans)]">
             <main className="flex flex-col gap-[32px] row-start-2 items-center mx-auto max-w-3xl">
                 <section>
                     <h1 className="font-bold text-lg mb-4">
-                        소프트웨어학부・AI융합학부 통폐합, <br/>
-                        학생이 외면당한 결정에 반대합니다. <br/>
+                        소프트웨어학부・AI융합학부 통폐합, <br />
+                        학생이 외면당한 결정에 반대합니다. <br />
                         반대 온라인 서명운동에 동참해 주세요!
                     </h1>
                     <Card className="mb-4">
@@ -18,7 +39,12 @@ export default function Home() {
                             <CardTitle className="text-nowrap">반대 서명운동 실시간현황</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <b className="text-red-500">800명</b> 참여중!
+                            {signatureCount !== null ? (
+                                <b className="text-red-500">{signatureCount}명</b>
+                            ) : (
+                                <span className="text-sm text-gray-500">로딩 중...</span>
+                            )}{" "}
+                            참여중!
                         </CardContent>
                     </Card>
                     <h2 className="text-base mb-1.5 font-semibold">
@@ -42,11 +68,9 @@ export default function Home() {
                     </p>
                 </section>
                 <Button asChild size="lg" className="w-full" variant="outline">
-                    <Link href="/signature-form">
-                        서명하기
-                    </Link>
+                    <Link href="/signature-form">서명하기</Link>
                 </Button>
             </main>
         </div>
-    );
+    )
 }
