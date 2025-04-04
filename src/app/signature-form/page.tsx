@@ -7,6 +7,7 @@ import {z} from "zod"
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {Checkbox} from "@/components/ui/checkbox";
+import Link from "next/link";
 
 const formSchema = z.object({
     name: z.string().min(2, {
@@ -109,7 +110,14 @@ export default function SignatureForm() {
                                 </FormItem>
                             )}
                         />
-                        <Button variant="outline" className="w-full" type="submit">제출하기</Button>
+                        <div className="flex gap-3">
+                            <Button variant="default" className="flex-1" type="submit">제출 하기</Button>
+                            <Button asChild variant="outline" className="flex-1">
+                                <Link href="/">
+                                    메인 화면으로
+                                </Link>
+                            </Button>
+                        </div>
                     </form>
                 </Form>
             </main>
