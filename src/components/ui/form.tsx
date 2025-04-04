@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import * as LabelPrimitive from "@radix-ui/react-label"
-import { Slot } from "@radix-ui/react-slot"
+import * as React from "react";
+import * as LabelPrimitive from "@radix-ui/react-label";
+import { Slot } from "@radix-ui/react-slot";
 import {
   Controller,
   FormProvider,
@@ -11,28 +11,28 @@ import {
   type ControllerProps,
   type FieldPath,
   type FieldValues,
-} from "react-hook-form"
+} from "react-hook-form";
 
-import { cn } from "@/lib/utils"
-import { Label } from "@/components/ui/label"
-import SignatureCanvas from "react-signature-canvas"
+import { cn } from "@/lib/utils";
+import { Label } from "@/components/ui/label";
+import SignatureCanvas from "react-signature-canvas";
 
-const Form = FormProvider
+const Form = FormProvider;
 
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 > = {
-  name: TName
-}
+  name: TName;
+};
 
 const FormFieldContext = React.createContext<FormFieldContextValue>(
   {} as FormFieldContextValue
-)
+);
 
 const FormField = <
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >({
   ...props
 }: ControllerProps<TFieldValues, TName>) => {
@@ -40,21 +40,21 @@ const FormField = <
     <FormFieldContext.Provider value={{ name: props.name }}>
       <Controller {...props} />
     </FormFieldContext.Provider>
-  )
-}
+  );
+};
 
 const useFormField = () => {
-  const fieldContext = React.useContext(FormFieldContext)
-  const itemContext = React.useContext(FormItemContext)
-  const { getFieldState } = useFormContext()
-  const formState = useFormState({ name: fieldContext.name })
-  const fieldState = getFieldState(fieldContext.name, formState)
+  const fieldContext = React.useContext(FormFieldContext);
+  const itemContext = React.useContext(FormItemContext);
+  const { getFieldState } = useFormContext();
+  const formState = useFormState({ name: fieldContext.name });
+  const fieldState = getFieldState(fieldContext.name, formState);
 
   if (!fieldContext) {
-    throw new Error("useFormField should be used within <FormField>")
+    throw new Error("useFormField should be used within <FormField>");
   }
 
-  const { id } = itemContext
+  const { id } = itemContext;
 
   return {
     id,
@@ -63,19 +63,19 @@ const useFormField = () => {
     formDescriptionId: `${id}-form-item-description`,
     formMessageId: `${id}-form-item-message`,
     ...fieldState,
-  }
-}
+  };
+};
 
 type FormItemContextValue = {
-  id: string
-}
+  id: string;
+};
 
 const FormItemContext = React.createContext<FormItemContextValue>(
   {} as FormItemContextValue
-)
+);
 
 function FormItem({ className, ...props }: React.ComponentProps<"div">) {
-  const id = React.useId()
+  const id = React.useId();
 
   return (
     <FormItemContext.Provider value={{ id }}>
@@ -85,14 +85,14 @@ function FormItem({ className, ...props }: React.ComponentProps<"div">) {
         {...props}
       />
     </FormItemContext.Provider>
-  )
+  );
 }
 
 function FormLabel({
   className,
   ...props
 }: React.ComponentProps<typeof LabelPrimitive.Root>) {
-  const { error, formItemId } = useFormField()
+  const { error, formItemId } = useFormField();
 
   return (
     <Label
@@ -102,11 +102,12 @@ function FormLabel({
       htmlFor={formItemId}
       {...props}
     />
-  )
+  );
 }
 
 function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
-  const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
+  const { error, formItemId, formDescriptionId, formMessageId } =
+    useFormField();
 
   return (
     <Slot
@@ -120,11 +121,11 @@ function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
       aria-invalid={!!error}
       {...props}
     />
-  )
+  );
 }
 
 function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
-  const { formDescriptionId } = useFormField()
+  const { formDescriptionId } = useFormField();
 
   return (
     <p
@@ -133,15 +134,15 @@ function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
       className={cn("text-muted-foreground text-sm", className)}
       {...props}
     />
-  )
+  );
 }
 
 function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
-  const { error, formMessageId } = useFormField()
-  const body = error ? String(error?.message ?? "") : props.children
+  const { error, formMessageId } = useFormField();
+  const body = error ? String(error?.message ?? "") : props.children;
 
   if (!body) {
-    return null
+    return null;
   }
 
   return (
@@ -153,25 +154,25 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
     >
       {body}
     </p>
-  )
+  );
 }
 
 // ✅ 시그니처 패드 전용 FormField
 function FormSignaturePad() {
-  const { name } = useFormField()
-  const { control } = useFormContext()
+  const { name } = useFormField();
+  const { control } = useFormContext();
 
   return (
     <Controller
       name={name}
       control={control}
       render={({ field }) => {
-        const canvasRef = React.useRef<SignatureCanvas>(null)
+        const canvasRef = React.useRef<SignatureCanvas>(null);
 
         const clear = () => {
-          canvasRef.current?.clear()
-          field.onChange("")
-        }
+          canvasRef.current?.clear();
+          field.onChange("");
+        };
 
         return (
           <div className="space-y-2">
@@ -179,10 +180,12 @@ function FormSignaturePad() {
               <SignatureCanvas
                 ref={canvasRef}
                 penColor="black"
-                canvasProps={{ width: 500, height: 200, className: "signature-canvas" }}
+                canvasProps={{
+                  className: "signature-canvas w-full h-full",
+                }}
                 onEnd={() => {
-                  const dataUrl = canvasRef.current?.toDataURL() || ""
-                  field.onChange(dataUrl)
+                  const dataUrl = canvasRef.current?.toDataURL() || "";
+                  field.onChange(dataUrl);
                 }}
               />
             </div>
@@ -194,10 +197,10 @@ function FormSignaturePad() {
               서명 지우기
             </button>
           </div>
-        )
+        );
       }}
     />
-  )
+  );
 }
 
 export {
@@ -210,4 +213,4 @@ export {
   FormMessage,
   FormField,
   FormSignaturePad, // ✅ export 추가
-}
+};
