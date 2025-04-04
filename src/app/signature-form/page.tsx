@@ -9,9 +9,6 @@ import {Input} from "@/components/ui/input";
 import {Checkbox} from "@/components/ui/checkbox";
 import Link from "next/link";
 
-import firestore from "../../../fiebase/firestore"; // Firestore 인스턴스 가져오기
-import {collection, addDoc} from "firebase/firestore"; // Firestore 관련 함수
-
 const formSchema = z.object({
     name: z.string().min(2, {
       message: "이름은 두 글자 이상으로 입력해주세요.",
@@ -43,17 +40,26 @@ export default function SignatureForm() {
     });
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        try {
-            // Firestore에 데이터 추가
-            await addDoc(collection(firestore, "signatureListTable"), {
-                name: values.name,
-                studentId: values.studentId,
-                department: values.department,
-            });
+        const {name, studentId, department} = values;
+
+        const response = await fetch('/signature', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name,
+                studentId,
+                department,
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.status === 201) {
             alert("서명이 정상적으로 등록되었습니다!");
             form.reset();
-        } catch (error) {
-            console.error("Firestore 저장 실패:", error);
+        } else if (data.status === 400) {
             alert("오류가 발생했습니다. 다시 시도해주세요.");
         }
     }

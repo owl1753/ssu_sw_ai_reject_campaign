@@ -1,29 +1,35 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { collection, onSnapshot } from "firebase/firestore"
-import firestore from "../../fiebase/firestore"
 
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function Home() {
-    const [signatureCount, setSignatureCount] = useState<number | null>(null)
+    const [signatureCount, setSignatureCount] = useState<number | null>(null);
 
     useEffect(() => {
-        const unsubscribe = onSnapshot(
-            collection(firestore, "signatureListTable"),
-            (snapshot) => {
-                setSignatureCount(snapshot.size)
-            },
-            (error) => {
-                console.error("실시간 서명 수 업데이트 실패:", error)
-            }
-        )
+        // EventSource를 사용하여 SSE 연결
+        const eventSource = new EventSource('signature/size');
 
-        return () => unsubscribe() // 컴포넌트 언마운트 시 리스너 정리
-    }, [])
+        // 데이터를 수신하면 상태 업데이트
+        eventSource.onmessage = (event) => {
+            const {size} = JSON.parse(event.data);
+            setSignatureCount(size);
+        };
+
+        // 오류 처리
+        eventSource.onerror = (error) => {
+            console.error('EventSource error:', error);
+            eventSource.close();
+        };
+
+        // 컴포넌트 언마운트 시 연결 닫기
+        return () => {
+            eventSource.close();
+        };
+    }, []);
 
     return (
         <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen px-4 font-[family-name:var(--font-geist-sans)]">
