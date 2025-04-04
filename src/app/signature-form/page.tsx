@@ -15,7 +15,9 @@ const formSchema = z.object({
     studentId: z.string().length(8, {
         message: "학번을 확인해주세요.",
     }),
-    department: z.string(),
+    department: z.string({
+        message: "학부를 확인해주세요."
+    }),
     termAgree: z.boolean(),
 })
 
