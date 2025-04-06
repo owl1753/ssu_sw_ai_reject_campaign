@@ -99,7 +99,11 @@ export default function SignatureForm() {
       form.reset();
       push("/");
     } else if (data.status === 400) {
-      alert("오류가 발생했습니다. 다시 시도해주세요.");
+      if (data.message === "이미 해당 학번으로 서명이 등록되어 있습니다.") {
+        alert("이미 서명하셨습니다! 중복 서명은 불가능합니다.");
+      } else {
+        alert("오류가 발생했습니다. 다시 시도해주세요.");
+      }
     }
   }
 
