@@ -89,6 +89,7 @@ export default function SignatureForm() {
         studentId,
         department,
         signatureBase64: signature,
+        timestamp: new Date().toISOString(),
       }),
     });
 

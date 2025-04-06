@@ -7,11 +7,12 @@ interface AddSignatureRequestBody {
   studentId: string;
   department: string;
   signatureBase64: string;
+  timestamp: string;
 }
 
 export async function PUT(request: NextRequest) {
   const body: AddSignatureRequestBody = await request.json();
-  const { name, studentId, department, signatureBase64 } = body;
+  const { name, studentId, department, signatureBase64, timestamp} = body;
 
   try {
     // 이미 해당 studentId로 서명했는지 확인
@@ -34,6 +35,7 @@ export async function PUT(request: NextRequest) {
       studentId,
       department,
       signatureBase64,
+      timestamp,
     });
 
     return NextResponse.json({
