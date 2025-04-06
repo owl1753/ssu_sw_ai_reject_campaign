@@ -6,12 +6,13 @@ interface AddSignatureRequestBody {
     name: string;
     studentId: string;
     department: string;
+    signatureBase64: string;
 }
 
 export async function PUT(request: NextRequest) {
     const body: AddSignatureRequestBody = await request.json();
 
-    const {name, studentId, department} = body;
+    const {name, studentId, department, signatureBase64} = body;
 
     try {
         // Firestore에 데이터 추가
@@ -19,6 +20,7 @@ export async function PUT(request: NextRequest) {
             name,
             studentId,
             department,
+            signatureBase64,
         });
 
         return NextResponse.json({status: 201, message: "서명이 정상적으로 등록되었습니다!"});

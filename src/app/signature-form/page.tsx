@@ -88,6 +88,7 @@ export default function SignatureForm() {
         name,
         studentId,
         department,
+        signatureBase64: signature,
       }),
     });
 
