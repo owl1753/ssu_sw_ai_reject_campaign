@@ -24,7 +24,7 @@ const formSchema = z.object({
     studentId: z.string().length(8, {message: "학번을 확인해주세요."}),
     department: z.string().min(1, {message: "학부를 확인해주세요."}),
     signature: z.string().min(1, {message: "서명을 입력해주세요."}),
-    termAgree: z.boolean().refine((val) => val, {message: "이용약관에 동의해주세요."}),
+    termAgree: z.boolean().refine((val) => val, {message: "개인정보처리방침에 동의해주세요."}),
     privacyAgree: z.boolean().refine((val) => val, {message: "개인정보 수집에 동의해주세요."}),
 });
 
@@ -128,7 +128,7 @@ export default function SignatureForm() {
                             name="department"
                             render={({field}) => (
                                 <FormItem>
-                                    <FormLabel>학부</FormLabel>
+                                    <FormLabel>학부 / 학과</FormLabel>
                                     <FormControl><Input placeholder="예: 소프트웨어학부" {...field} /></FormControl>
                                     <FormMessage/>
                                 </FormItem>
@@ -162,7 +162,7 @@ export default function SignatureForm() {
                                                         rel="noopener noreferrer"
                                                         className="underline text-blue-600 hover:text-blue-800"
                                                     >
-                                                        이용 약관
+                                                        개인정보처리방침
                                                     </a>에 동의합니다.
                                                 </label>
                                             </div>
