@@ -53,7 +53,9 @@ export default function Home() {
         <section className="w-full">
           <h1 className="font-extrabold text-2xl text-center leading-snug text-gray-900 mb-6">
             AI혁신대학 개편, <br />
-            <span className="text-red-600">학생이 외면당한 결정에 반대합니다.</span>
+            <span className="text-red-600">
+              학생이 외면당한 결정에 반대합니다.
+            </span>
             <br />
             반대 온라인 서명운동에 동참해 주세요!
           </h1>
@@ -61,7 +63,7 @@ export default function Home() {
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className="text-nowrap">
-                반대 서명운동 실시간 현황
+                반대 온라인 서명운동 실시간 현황
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -78,7 +80,7 @@ export default function Home() {
           <div className="space-y-8">
             <AppealBox
               title="충분한 준비 없이 성급하게 개편을 추진하고 있습니다."
-              content={`AI혁신대학 계획은 2026학년도 신입생 모집요강 마감 일정에 맞추기 위해 무리하게 추진되고 있습니다.\n학생들과의 사전 설명회나 논의 과정 없이 절차가 진행되었고, 이는 정당성을 심각하게 훼손하는 문제입니다.\n교수 충원도 완료되지 않은 상태에서 개편이 추진되고 있으며, 그 불확실성의 피해는 고스란히 학생에게 돌아갑니다.`}
+              content={`현 AI혁신대학 도입안은 2026학년도 신입생 모집요강 마감 일정에 맞추기 위해 무리하게 추진되고 있습니다.\n학생들과의 사전 설명회나 논의 과정 없이 절차가 진행되었고, 이는 정당성을 심각하게 훼손하는 문제입니다.\n교수 충원도 완료되지 않은 상태에서 도입안이 추진되고 있으며, 그 불확실성의 피해는 고스란히 학생에게 돌아갑니다.`}
             />
             <hr className="border-gray-200" />
             <AppealBox
@@ -117,10 +119,20 @@ export default function Home() {
 
         {/* 서명 + 공유 버튼 그룹 */}
         <div className="flex gap-3 w-full">
-          <Button asChild size="lg" className="flex-1 font-semibold text-bas bg-black text-white" variant="outline">
+          <Button
+            asChild
+            size="lg"
+            className="flex-1 font-semibold text-bas bg-black text-white"
+            variant="outline"
+          >
             <Link href="/signature-form">서명하기</Link>
           </Button>
-          <Button size="icon" variant="secondary" onClick={handleShare} className="shrink-0">
+          <Button
+            size="icon"
+            variant="secondary"
+            onClick={handleShare}
+            className="shrink-0"
+          >
             <Share2 className="w-5 h-5" />
             <span className="sr-only">공유하기</span>
           </Button>
