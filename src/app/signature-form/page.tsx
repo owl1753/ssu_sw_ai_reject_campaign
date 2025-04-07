@@ -39,7 +39,6 @@ const formSchema = z.object({
   }),
 });
 
-
 export default function SignatureForm() {
   const { push } = useRouter();
 
@@ -53,6 +52,18 @@ export default function SignatureForm() {
       privacyAgree: false,
     },
   });
+
+  const watch = form.watch();
+
+  const isSubmitDisabled =
+    !watch.name ||
+    watch.name.length < 2 ||
+    !watch.studentId ||
+    watch.studentId.length !== 8 ||
+    !watch.department ||
+    !watch.signature ||
+    !watch.termAgree ||
+    !watch.privacyAgree;
 
   function dataURLtoFile(dataurl: string, filename: string): File {
     const arr = dataurl.split(",");
@@ -70,19 +81,6 @@ export default function SignatureForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { name, studentId, department, signature } = values;
-
-    console.log("서명 base64", signature);
-
-    const signatureFile = dataURLtoFile(
-      signature,
-      `${name}-${studentId}-${department}-signature.png`
-    );
-
-    console.log("서명 파일", signatureFile);
-
-    const blobUrl = URL.createObjectURL(signatureFile);
-
-    console.log("서명 파일", blobUrl);
 
     const response = await fetch("/signature", {
       method: "PUT",
@@ -166,7 +164,7 @@ export default function SignatureForm() {
               )}
             />
 
-            {/* ✅ 시그니처 패드 추가 */}
+            {/* 서명 */}
             <FormField
               control={form.control}
               name="signature"
@@ -181,39 +179,40 @@ export default function SignatureForm() {
               )}
             />
 
-          <FormField
-            control={form.control}
-            name="termAgree"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="terms"
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                    <div className="text-sm font-medium leading-none">
-                      <label htmlFor="terms" className="cursor-pointer">
-                        <a
-                          href="https://simulatedfinancialinvestment.notion.site/1cd5fa1245d58017a7e7c561999e694a"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="underline text-blue-600 hover:text-blue-800"
-                        >
-                          이용 약관
-                        </a>
-                        에 동의합니다.
-                      </label>
+            {/* 이용약관 동의 */}
+            <FormField
+              control={form.control}
+              name="termAgree"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="terms"
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                      <div className="text-sm font-medium leading-none">
+                        <label htmlFor="terms" className="cursor-pointer">
+                          <a
+                            href="https://simulatedfinancialinvestment.notion.site/1cd5fa1245d58017a7e7c561999e694a"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline text-blue-600 hover:text-blue-800"
+                          >
+                            이용 약관
+                          </a>
+                          에 동의합니다.
+                        </label>
+                      </div>
                     </div>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-
+            {/* 개인정보 수집 동의 */}
             <FormField
               control={form.control}
               name="privacyAgree"
@@ -230,7 +229,8 @@ export default function SignatureForm() {
                         htmlFor="privacy"
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
-                        본인은 개인정보의 수집 및 이용, 제3자 제공에 관한 사항을 모두 확인하였으며 이에 동의합니다.
+                        본인은 개인정보의 수집 및 이용, 제3자 제공에 관한 사항을
+                        모두 확인하였으며 이에 동의합니다.
                       </label>
                     </div>
                   </FormControl>
@@ -241,7 +241,12 @@ export default function SignatureForm() {
 
             {/* 제출 버튼 */}
             <div className="flex gap-3">
-              <Button variant="default" className="flex-1" type="submit">
+              <Button
+                variant="default"
+                className="flex-1"
+                type="submit"
+                disabled={isSubmitDisabled}
+              >
                 제출 하기
               </Button>
               <Button asChild variant="outline" className="flex-1">
