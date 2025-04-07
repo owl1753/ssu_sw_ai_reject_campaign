@@ -60,10 +60,8 @@ export default function SignatureForm() {
         const {name, studentId, department, signature} = values;
         setIsLoading(true);
 
-        const signatureEndpoint = process.env.NEXT_PUBLIC_SIGNATURE_API_ENDPOINT ?? "/signature";
-
         try {
-            const response = await fetch(signatureEndpoint, {
+            const response = await fetch('/signature', {
                 method: "PUT",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
