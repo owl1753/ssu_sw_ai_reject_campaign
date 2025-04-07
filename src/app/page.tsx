@@ -117,6 +117,11 @@ export default function Home() {
           </Card>
         </section>
 
+        <p className="text-base text-gray-400">
+          ※ 본 서명운동은 학생회와 무관하며, SW&AI학부의 일부 학생들이 모여서
+          개발한 웹사이트를 통해 진행하고 있는 운동입니다.
+        </p>
+
         {/* 서명 + 공유 버튼 그룹 */}
         <div className="flex gap-3 w-full">
           <Button
