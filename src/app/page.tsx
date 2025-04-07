@@ -40,7 +40,6 @@ export default function Home() {
             학생이 외면당한 결정에 반대합니다. <br />
             반대 온라인 서명운동에 동참해 주세요!
           </h1>
-          <img src="http://localhost:3000/179f5e10-ad27-46dc-bf0e-311714aa38e1" />
           <Card className="mb-4">
             <CardHeader>
               <CardTitle className="text-nowrap">
