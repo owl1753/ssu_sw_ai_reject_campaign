@@ -160,48 +160,54 @@ function FormMessage({className, ...props}: React.ComponentProps<"p">) {
 
 // ✅ 시그니처 패드 전용 FormField
 function FormSignaturePad() {
-    const {name} = useFormField();
-    const {control} = useFormContext();
-    const canvasRef = useRef<SignatureCanvas>(null);
+  const { name } = useFormField();
+  const { control } = useFormContext();
+  const canvasRef = useRef<SignatureCanvas>(null);
 
-    return (
-        <Controller
-            name={name}
-            control={control}
-            render={({field}) => {
-                const clear = () => {
-                    canvasRef.current?.clear();
-                    field.onChange("");
-                };
+  return (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => {
+        const clear = () => {
+          canvasRef.current?.clear();
+          field.onChange("");
+        };
 
-                return (
-                    <div className="space-y-2">
-                        <div className="border rounded-md p-2 bg-white">
-                            <SignatureCanvas
-                                ref={canvasRef}
-                                penColor="black"
-                                canvasProps={{
-                                    className: "signature-canvas w-full h-full",
-                                }}
-                                onEnd={() => {
-                                    const dataUrl = canvasRef.current?.toDataURL() || "";
-                                    field.onChange(dataUrl);
-                                }}
-                            />
-                        </div>
-                        <button
-                            type="button"
-                            onClick={clear}
-                            className="text-sm underline text-gray-500 hover:text-gray-700"
-                        >
-                            서명 지우기
-                        </button>
-                    </div>
-                );
-            }}
-        />
-    );
+        return (
+          <div className="space-y-2">
+            <div className="border rounded-md p-2 bg-white">
+              <SignatureCanvas
+                ref={canvasRef}
+                penColor="black"
+                canvasProps={{
+                  className: "signature-canvas w-full",
+                  style: {
+                    width: "100%",
+                    height: "300px",
+                    borderRadius: "8px"
+                  }
+                }}
+                onEnd={() => {
+                  const dataUrl = canvasRef.current?.toDataURL() || "";
+                  field.onChange(dataUrl);
+                }}
+              />
+            </div>
+            <button
+              type="button"
+              onClick={clear}
+              className="text-sm underline text-gray-500 hover:text-gray-700"
+            >
+              서명 지우기
+            </button>
+          </div>
+        );
+      }}
+    />
+  );
 }
+
 
 export {
     useFormField,
