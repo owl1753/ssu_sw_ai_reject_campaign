@@ -91,6 +91,7 @@ export default function SignatureForm() {
             }
         } catch (error) {
             alert("서명 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+            console.error(error);
         } finally {
             setIsLoading(false);
         }
