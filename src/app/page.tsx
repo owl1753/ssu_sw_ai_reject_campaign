@@ -51,7 +51,7 @@ export default function Home() {
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen px-4 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 items-center mx-auto max-w-3xl w-full">
         <section>
-          <h1 className="font-bold text-lg mb-4">
+          <h1 className="font-bold text-xl mb-4">
             AI혁신대학 개편,
             <br />
             학생이 외면당한 결정에 반대합니다.
@@ -81,7 +81,7 @@ export default function Home() {
           <br />
           <AppealBox
             title="학생 이익·학습권을 침해하는 도입안입니다."
-            content={`새로 도입되는 커리큘럼이 다른 각 학부의 정체성과 학습 내용을 훼손합니다. 학생들이 학과를 선택할 때 기대한 학습 내용을 보장받을 수 없습니다.\n실제로 스마트시스템소프트웨어에서 AI융합학과로 전환된 후 특정 과목이 폐지된 사례가 있습니다.`}
+            content={`새로 도입되는 커리큘럼이 다른 각 학부의 정체성과 학습 내용을 훼손합니다. 학생들이 학과를 선택할 때 기대한 학습 내용을 보장받을 수 없습니다. 실제로 스마트시스템소프트웨어에서 AI융합학과로 전환된 후 특정 과목이 폐지된 사례가 있습니다.`}
           />
           <br />
           <AppealBox
@@ -95,7 +95,7 @@ export default function Home() {
           />
           <br />
           <div>
-            <h2 className="text-base font-semibold mb-2">우리의 요구</h2>
+            <h2 className="text-lg font-semibold mb-2">우리의 요구</h2>
             <ul className="list-disc list-inside space-y-1">
               <li>AI혁신대학 도입안에 대한 전면 재검토</li>
               <li>학생 의견 수렴 및 사전 협의를 통한 절차적 정당성 확보</li>
