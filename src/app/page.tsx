@@ -121,8 +121,7 @@ export default function Home() {
         <div className="flex gap-3 w-full">
           <Button
             asChild
-            size="lg"
-            className="flex-1 font-semibold text-bas bg-black text-white"
+            className="flex-1 font-semibold text-bas bg-black text-white h-14"
             variant="outline"
           >
             <Link href="/signature-form">서명하기</Link>
@@ -131,7 +130,7 @@ export default function Home() {
             size="icon"
             variant="secondary"
             onClick={handleShare}
-            className="shrink-0"
+            className="shrink-0 h-14"
           >
             <Share2 className="w-5 h-5" />
             <span className="sr-only">공유하기</span>
