@@ -28,8 +28,8 @@ export default function Home() {
   }, []);
 
   const handleShare = () => {
-    if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(window.location.href)
+    if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(window.location.href)
         .then(() => {
           alert("링크가 복사되었습니다!");
         })
