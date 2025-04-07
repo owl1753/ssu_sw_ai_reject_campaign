@@ -33,6 +33,7 @@ export default function SignatureForm() {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
+    mode: "onChange",
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
