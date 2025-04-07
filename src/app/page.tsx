@@ -117,7 +117,7 @@ export default function Home() {
 
         {/* 서명 + 공유 버튼 그룹 */}
         <div className="flex gap-3 w-full">
-          <Button asChild size="lg" className="flex-1 font-semibold text-base" variant="outline">
+          <Button asChild size="lg" className="flex-1 font-semibold text-bas bg-black text-white" variant="outline">
             <Link href="/signature-form">서명하기</Link>
           </Button>
           <Button size="icon" variant="secondary" onClick={handleShare} className="shrink-0">
