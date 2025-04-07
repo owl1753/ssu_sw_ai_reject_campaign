@@ -27,7 +27,7 @@ const SignaturePad = forwardRef<SignaturePadRef, Props>(({onChange}, ref) => {
                 ref={sigCanvasRef}
                 penColor="black"
                 canvasProps={{
-                    className: "signature-canvas w-full h-[200px]", // ✅ 중요: w-full
+                    className: "signature-canvas w-full h-[200px]", 
                     style: { width: 900, borderRadius: '8px' }
                 }}
                 onEnd={() => {

@@ -174,6 +174,8 @@ function FormSignaturePad() {
           field.onChange("");
         };
 
+        
+
         return (
           <div className="space-y-2">
             <div className="border rounded-md p-2 bg-white">
