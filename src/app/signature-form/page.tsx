@@ -34,7 +34,11 @@ const formSchema = z.object({
   termAgree: z.boolean().refine((val) => val, {
     message: "이용약관에 동의해주세요.",
   }),
+  privacyAgree: z.boolean().refine((val) => val, {
+    message: "개인정보 수집에 동의해주세요.",
+  }),
 });
+
 
 export default function SignatureForm() {
   const { push } = useRouter();
@@ -46,6 +50,7 @@ export default function SignatureForm() {
       studentId: "",
       department: "",
       termAgree: false,
+      privacyAgree: false,
     },
   });
 
@@ -176,24 +181,56 @@ export default function SignatureForm() {
               )}
             />
 
-            {/* 이용약관 */}
+          <FormField
+            control={form.control}
+            name="termAgree"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="terms"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                    <div className="text-sm font-medium leading-none">
+                      <label htmlFor="terms" className="cursor-pointer">
+                        <a
+                          href="https://simulatedfinancialinvestment.notion.site/1cd5fa1245d58017a7e7c561999e694a"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline text-blue-600 hover:text-blue-800"
+                        >
+                          이용 약관
+                        </a>
+                        에 동의합니다.
+                      </label>
+                    </div>
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+
             <FormField
               control={form.control}
-              name="termAgree"
+              name="privacyAgree"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
                     <div className="flex items-center space-x-2">
                       <Checkbox
-                        id="terms"
+                        id="privacy"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                       />
                       <label
-                        htmlFor="terms"
+                        htmlFor="privacy"
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
-                        이용 약관에 동의합니다.
+                        본인은 개인정보의 수집 및 이용, 제3자 제공에 관한 사항을 모두 확인하였으며 이에 동의합니다.
                       </label>
                     </div>
                   </FormControl>
