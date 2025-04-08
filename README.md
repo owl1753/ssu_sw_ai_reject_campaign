@@ -1,36 +1,17 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI혁신대학 개편 반대 온라인 서명운동
 
-## Getting Started
+현재의 AI 혁신대학 도입안은 학생의 의견이 반영되지 않은 학습권을 침해하는 도입안입니다. 도입안의 근거로 제시한 실질적 문제(교수진 부족·강의실 부족·자유전공 인원 쏠림 등)에 대한 명확한 해결 방안이 없고, 도입으로 인해 야기될 문제에 대한 해결책을 마련하지 않은 채 무리하게 도입을 강행하려고 합니다.
 
-First, run the development server:
+우리는 전자 서명을 통해 학부와 학교 학생들의 반대 의견을 모아 현재의 도입안에 대해 전면 재검토를 주장하고, 학생들의 의견을 충분히 수렴하여 AI 혁신대학 도입을 위한 명확한 대책을 갖춘 상태에서 재논의되는 것을 원합니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**AI혁신대학 개편, 학생이 외면당한 결정에 반대합니다.**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+반대 온라인 서명운동에 동참해 주세요!
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+[전자 서명운동 링크](https://ssu-sw-ai-reject-campaign.vercel.app/)
 
-## Learn More
+[오픈채팅 링크](https://open.kakao.com/o/sNgGECph)
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*본 서명 운동은 SW&AI학부의 일부 학생들이 모여서 개발한 웹사이트를 통해 진행하고 있는 운동입니다.*
