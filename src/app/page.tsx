@@ -3,9 +3,14 @@ import Link from "next/link";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import AppealBox from "@/components/appealBox";
 import ShareButton from "@/app/components/ShareButton";
-import SignatureCount from "@/app/components/SignatureCount";
+import {collection, getDocs} from "firebase/firestore";
+import firestore from "../../firebase/firestore";
 
-export default function Home() {
+export const dynamic = 'force-dynamic';
+
+export default async function Home() {
+    const {size} = await getDocs(collection(firestore, "signatureListTable"));
+
     return (
         <div className="min-h-screen px-4 py-8 font-[family-name:var(--font-geist-sans)] bg-white">
             <main className="flex flex-col gap-10 items-center mx-auto max-w-3xl w-full">
@@ -26,7 +31,7 @@ export default function Home() {
                         </CardHeader>
                         <CardContent>
                             <b className="text-red-600 text-lg">
-                                <SignatureCount/>명
+                                {size}명
                             </b> 참여중!
                         </CardContent>
                     </Card>
