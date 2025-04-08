@@ -1,51 +1,16 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Share2 } from "lucide-react";
 import AppealBox from "@/components/appealBox";
+import {API_CONFIG} from "@/api/config";
 
-export default function Home() {
-  const [signatureCount, setSignatureCount] = useState<number | null>(null);
-
-  useEffect(() => {
-    const eventSource = new EventSource("signature/size");
-
-    eventSource.onmessage = (event) => {
-      const { size } = JSON.parse(event.data);
-      setSignatureCount(size);
-    };
-
-    eventSource.onerror = (error) => {
-      console.error("EventSource error:", error);
-      eventSource.close();
-    };
-
-    return () => {
-      eventSource.close();
-    };
-  }, []);
-
-  const handleShare = () => {
-    if (
-      typeof navigator !== "undefined" &&
-      navigator.clipboard &&
-      navigator.clipboard.writeText
-    ) {
-      navigator.clipboard
-        .writeText(window.location.href)
-        .then(() => {
-          alert("링크가 복사되었습니다!");
-        })
-        .catch(() => {
-          alert("링크 복사에 실패했습니다.");
-        });
-    } else {
-      alert("현재 브라우저에서 클립보드 복사를 지원하지 않습니다.");
-    }
-  };
+export default async function Home() {
+    const res = await fetch(`${API_CONFIG.API_BASE_URL}/signature/size`, {
+        method: "GET",
+        headers: {"Content-Type": "application/json"},
+    });
+    const {size} = await res.json();
 
   return (
     <div className="min-h-screen px-4 py-8 font-[family-name:var(--font-geist-sans)] bg-white">
@@ -67,12 +32,7 @@ export default function Home() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {signatureCount !== null ? (
-                <b className="text-red-600 text-lg">{signatureCount}명</b>
-              ) : (
-                <span className="text-sm text-gray-500">로딩 중...</span>
-              )}{" "}
-              참여중!
+              <b className="text-red-600 text-lg">{size}명</b> 참여중!
             </CardContent>
           </Card>
 
@@ -134,7 +94,6 @@ export default function Home() {
           <Button
             size="icon"
             variant="secondary"
-            onClick={handleShare}
             className="shrink-0 h-14"
           >
             <Share2 className="w-5 h-5" />
