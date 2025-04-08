@@ -61,7 +61,7 @@ export default function SignatureForm() {
         setIsLoading(true);
 
         try {
-            const response = await fetch('/signature', {
+            const response = await fetch('/api/signature', {
                 method: "PUT",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({

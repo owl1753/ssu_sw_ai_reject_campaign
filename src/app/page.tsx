@@ -1,16 +1,13 @@
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Share2 } from "lucide-react";
 import AppealBox from "@/components/appealBox";
-import {API_CONFIG} from "@/api/config";
+import {collection, getDocs} from "firebase/firestore";
+import firestore from "../../firebase/firestore";
+import ShareButton from "@/app/components/ShareButton";
 
 export default async function Home() {
-    const res = await fetch(`${API_CONFIG.API_BASE_URL}/signature/size`, {
-        method: "GET",
-        headers: {"Content-Type": "application/json"},
-    });
-    const {size} = await res.json();
+  const {size} = await getDocs(collection(firestore, "signatureListTable"));
 
   return (
     <div className="min-h-screen px-4 py-8 font-[family-name:var(--font-geist-sans)] bg-white">
@@ -91,14 +88,7 @@ export default async function Home() {
           >
             <Link href="/signature-form">서명하기</Link>
           </Button>
-          <Button
-            size="icon"
-            variant="secondary"
-            className="shrink-0 h-14"
-          >
-            <Share2 className="w-5 h-5" />
-            <span className="sr-only">공유하기</span>
-          </Button>
+          <ShareButton />
         </div>
       </main>
     </div>

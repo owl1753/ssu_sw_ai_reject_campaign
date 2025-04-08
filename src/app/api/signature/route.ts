@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
-import firestore from "../../../firebase/firestore";
+import firestore from "../../../../firebase/firestore";
 
 interface AddSignatureRequestBody {
   name: string;
